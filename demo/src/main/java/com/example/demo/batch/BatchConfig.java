@@ -71,7 +71,7 @@ public class BatchConfig {
     @Bean
     public LineMapper<Employee> lineMapper() {
         DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
-        tokenizer.setNames("id", "name", "salary", "dept", "joiningDate", "address", "city", "state", "email", "phone");
+        tokenizer.setNames("id", "name", "salary", "dept", "address", "city", "state", "email", "phone");
 
         BeanWrapperFieldSetMapper<Employee> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
         fieldSetMapper.setTargetType(Employee.class); // Specify the target type (Employee)
@@ -84,18 +84,15 @@ public class BatchConfig {
     }
 
     @Bean
-    public JdbcBatchItemWriter<Employee> writer(DataSource dataSource) {
+    public JdbcBatchItemWriter<Employee> writer() {
         JdbcBatchItemWriter<Employee> writer = new JdbcBatchItemWriter<>();
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
-        writer.setSql("INSERT INTO employees (id, name, salary, dept, joining_date, address, city, state, email, phone) " +
-                "VALUES (:id, :name, :salary, :dept, :joiningDate, :address, :city, :state, :email, :phone)");
+        writer.setSql("INSERT INTO employees (id, name, salary, department, address, city, state, email, phone) " +
+                "VALUES (:id, :name, :salary, :dept, :address, :city, :state, :email, :phone)");
         writer.setDataSource(dataSource);
-
-        // Add logging to ensure it is writing the data
-
-        System.out.println(writer);
         return writer;
     }
+
 
 
     @Bean
@@ -107,7 +104,7 @@ public class BatchConfig {
         return stepBuilder
                 .<Employee, Employee>chunk(100,transactionManager)
                 .reader(reader())
-                .writer(writer(null))
+                .writer(writer())
                 .build();
     }
 

@@ -10,7 +10,7 @@ public class Employee {
     private String name;
     private BigDecimal salary; // Use BigDecimal for salary
     private String dept;
-    private Date joiningDate; // Use Date for date fields
+    // Use Date for date fields
     private String address;
     private String city;
     private String state;
@@ -21,13 +21,13 @@ public class Employee {
     public Employee() {}
 
     // Parameterized Constructor (optional)
-    public Employee(int id, String name, BigDecimal salary, String dept, Date joiningDate,
+    public Employee(int id, String name, BigDecimal salary, String dept,
                     String address, String city, String state, String email, String phone) {
         this.id = id;
         this.name = name;
         this.salary = salary;
         this.dept = dept;
-        this.joiningDate = joiningDate;
+
         this.address = address;
         this.city = city;
         this.state = state;
@@ -68,13 +68,7 @@ public class Employee {
         this.dept = dept;
     }
 
-    public Date getJoiningDate() {
-        return joiningDate;
-    }
 
-    public void setJoiningDate(Date joiningDate) {
-        this.joiningDate = joiningDate;
-    }
 
     public String getAddress() {
         return address;
@@ -123,7 +117,7 @@ public class Employee {
                 ", name='" + name + '\'' +
                 ", salary=" + salary +
                 ", dept='" + dept + '\'' +
-                ", joiningDate=" + joiningDate +
+
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
